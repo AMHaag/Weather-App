@@ -1,0 +1,115 @@
+*{
+    margin: 0px;
+}
+:root{
+    font-family: 'Radio Canada',sans-serif;
+    font-weight: 500;
+}
+h1{
+    font-size:3em
+}
+
+
+/* header */
+header{
+    background-color: #212529;
+    height: 75px;
+}
+.title{
+    color: white;
+    font-size:x-large;
+    position:absolute;
+    top: 1em;
+    left:31px
+}
+
+.city-search {
+    display:flex;
+}
+
+.grid {
+    margin: 5em;
+    display: grid;
+    columns: 1fr 8fr;
+
+}
+
+.search-box{
+    width: fit-content;
+    position: absolute;
+    left: 50%;
+
+}
+
+.today-box{
+    border: #212529 solid;
+    padding: 1em;
+    column-width: 8fr;
+    display: flex;
+    text-align: center;
+    
+    
+}
+h2{
+    padding:0.5em;
+}
+.forecast {
+    grid-column-end: span 2;
+    border: #198754 solid;
+    column-width: 2fr;
+    text-align: center;
+}
+[class*=weather-box]{
+    flex-grow: 1;
+
+}
+.weather-condition-today{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.today-condition{
+    justify-self: center;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.btn-outline-success:hover {
+    color: #fff;
+    background-color: #198754;
+    border-color: #198754;
+}
