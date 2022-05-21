@@ -6,7 +6,6 @@ let weatherData;
 var cityName = "";
 var stateName = "";
 var country = "";
-
 //----API URLs----//
 const myApiKey = "586433eee22d8b739edbf12ad12b2ae0";
 
@@ -14,9 +13,10 @@ const myApiKey = "586433eee22d8b739edbf12ad12b2ae0";
 // decodeSearchTerm(searchQuery);
 
 /*Search Button event triggers the geodecode to turn city name into
-  lat and lon, it passes those to the loadWeather function with the
-  APi and writes teh resonse to weatherData */
+lat and lon, it passes those to the loadWeather function with the
+APi and writes teh resonse to weatherData */
 $(".city-search").on("submit", function (e) {
+  e.preventDefault();
   let searchQuery = $("#city").val();
   console.log(searchQuery);
   decodeSearchTerm(searchQuery);
@@ -63,6 +63,7 @@ function loadWeather(lat, lon) {
 //----Objectifying the DOM----//
 /* Today's Weather */
 
+//setting all of the DOM elements of today's weather as an object
 let today = {
   city: $(".city-name")[0],
   date: $(".today-date")[0],
@@ -72,7 +73,7 @@ let today = {
   humidity: $(".today-humidity")[0],
   uvIndex: $(".today-UV-index")[0],
 };
-
+//setting all of the forecast DOM elements as a n object
 let forecast = {
   day: [
     {
@@ -113,35 +114,123 @@ let forecast = {
     },
   ],
 };
-
-console.log(forecast);
-
-var label = {
-  hum: '<span><i class="fa-solid fa-water"></i></span>',
+//objectifying the weather condition icon ids
+let condition = {
+  thunderstorm: {
+    icon: "11d",
+  },
+  drizzle: {
+    icon: "09d",
+  },
+  rain: {
+    icon: "10d",
+  },
+  snow: {
+    icon: "13d",
+  },
+  atmostphere: {
+    icon: "50d",
+  },
+  clear: {
+    icon: "01d",
+  },
+  clouds: {
+    few: {
+      icon: "02d",
+    },
+    scattered: {
+      icon: "03d",
+    },
+    moderate: {
+      icon: "04d",
+    },
+  },
 };
+//parsing the weather condition ids to return the proper icon
+function loadConditionIcon(weatherId) {
+  let id = Math.floor(weatherId / 100);
+  if (weatherId === 800) {
+    return (
+      "http://openweathermap.org/img/wn/" + condition.clear.icon + "@2x.png"
+    );
+  }
+  if (weatherId === 801) {
+    return (
+      "http://openweathermap.org/img/wn/" +
+      condition.clouds.few.icon +
+      "@2x.png"
+    );
+  }
+  if (weatherId === 802) {
+    return (
+      "http://openweathermap.org/img/wn/" +
+      condition.clouds.scattered.icon +
+      "@2x.png"
+    );
+  }
+  if (weatherId > 802) {
+    return (
+      "http://openweathermap.org/img/wn/" +
+      condition.clouds.moderate.icon +
+      "@2x.png"
+    );
+  }
+  if (id < 3) {
+    return (
+      "http://openweathermap.org/img/wn/" +
+      condition.thunderstorm.icon +
+      "@2x.png"
+    );
+  }
+  if (id < 5) {
+    return (
+      "http://openweathermap.org/img/wn/" + condition.drizzle.icon + "@2x.png"
+    );
+  }
+  if (id < 6) {
+    return (
+      "http://openweathermap.org/img/wn/" + condition.rain.icon + "@2x.png"
+    );
+  }
+  if (id < 7) {
+    return (
+      "http://openweathermap.org/img/wn/" + condition.snow.icon + "@2x.png"
+    );
+  }
+  if (id < 8) {
+    return (
+      "http://openweathermap.org/img/wn/" +
+      condition.atmostphere.icon +
+      "@2x.png"
+    );
+  }
+}
 
 function writeWeatherData() {
   //this sets ll of the elemenst of today's weather to match the current data from OWM
   today.city.innerText = cityName + ", " + stateName + "   ";
   today.date.innerText = moment().format("dddd, MMMM Do YYYY");
-  //condition
-  today.wind.innerText = Math.round(weatherData.current.wind_speed) + " MPH";
+  today.wind.innerText =
+    "Wind: " + Math.round(weatherData.current.wind_speed) + " MPH";
+
+  today.condition.src = loadConditionIcon(weatherData.current.weather[0].id);
   today.temp.innerHTML = Math.round(weatherData.current.temp) + "°";
-  today.humidity.innerHTML =
-    label.hum + " " + weatherData.current.humidity + "% ";
+  today.humidity.innerHTML = "Humidity% " + weatherData.current.humidity + "% ";
   today.uvIndex.innerText = Math.round(weatherData.current.uvi);
 
   //this loops through each of the next 4 days and matches them to OMW Data
   for (i = 0; i < forecast.day.length; i++) {
     forecast.day[i].date.innerText = moment().add(i, "d").format("dddd");
-    //cond
     forecast.day[i].temp.innerText =
       Math.round(weatherData.daily[i + 1].temp.max) + "°";
-    forecast.day[i].visilibility.innerText = "";
+    forecast.day[i].condition.src = loadConditionIcon(
+      weatherData.daily[i + 1].weather[0].id
+    );
     forecast.day[i].wind.innerText =
-      Math.round(weatherData.daily[i + 1].wind_speed) + " MPH";
+      "Wind: " + Math.round(weatherData.daily[i + 1].wind_speed) + " MPH";
     forecast.day[i].humidity.innerText =
       "Humidity% " + weatherData.daily[i + 1].humidity;
     forecast.day[i].uv.innerText = Math.round(weatherData.daily[i + 1].uvi);
   }
+  $(".main-grid").css("display", "grid");
 }
