@@ -23,7 +23,7 @@ $(".city-search").on("submit", function (e) {
 });
 //this decodes the city name and passes it to the weather api
 function decodeSearchTerm(query) {
-  var geocodeApi = `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${myApiKey}`;
+  var geocodeApi = `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${myApiKey}`;
   console.log(geocodeApi);
   fetch(geocodeApi)
     .then(function (response) {
@@ -151,55 +151,55 @@ function loadConditionIcon(weatherId) {
   let id = Math.floor(weatherId / 100);
   if (weatherId === 800) {
     return (
-      "http://openweathermap.org/img/wn/" + condition.clear.icon + "@2x.png"
+      "https://openweathermap.org/img/wn/" + condition.clear.icon + "@2x.png"
     );
   }
   if (weatherId === 801) {
     return (
-      "http://openweathermap.org/img/wn/" +
+      "https://openweathermap.org/img/wn/" +
       condition.clouds.few.icon +
       "@2x.png"
     );
   }
   if (weatherId === 802) {
     return (
-      "http://openweathermap.org/img/wn/" +
+      "https://openweathermap.org/img/wn/" +
       condition.clouds.scattered.icon +
       "@2x.png"
     );
   }
   if (weatherId > 802) {
     return (
-      "http://openweathermap.org/img/wn/" +
+      "https://openweathermap.org/img/wn/" +
       condition.clouds.moderate.icon +
       "@2x.png"
     );
   }
   if (id < 3) {
     return (
-      "http://openweathermap.org/img/wn/" +
+      "https://openweathermap.org/img/wn/" +
       condition.thunderstorm.icon +
       "@2x.png"
     );
   }
   if (id < 5) {
     return (
-      "http://openweathermap.org/img/wn/" + condition.drizzle.icon + "@2x.png"
+      "https://openweathermap.org/img/wn/" + condition.drizzle.icon + "@2x.png"
     );
   }
   if (id < 6) {
     return (
-      "http://openweathermap.org/img/wn/" + condition.rain.icon + "@2x.png"
+      "https://openweathermap.org/img/wn/" + condition.rain.icon + "@2x.png"
     );
   }
   if (id < 7) {
     return (
-      "http://openweathermap.org/img/wn/" + condition.snow.icon + "@2x.png"
+      "https://openweathermap.org/img/wn/" + condition.snow.icon + "@2x.png"
     );
   }
   if (id < 8) {
     return (
-      "http://openweathermap.org/img/wn/" +
+      "https://openweathermap.org/img/wn/" +
       condition.atmostphere.icon +
       "@2x.png"
     );
