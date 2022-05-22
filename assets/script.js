@@ -6,11 +6,15 @@ let weatherData;
 var cityName = "";
 var stateName = "";
 var country = "";
+var searchHistory = document.getElementById("search-history");
+function appendToSearchHistroy(textArg) {
+  var option = document.createElement("option");
+  option.text = textArg;
+  searchHistory.add(option);
+}
+
 //----API URLs----//
 const myApiKey = "586433eee22d8b739edbf12ad12b2ae0";
-
-//!!!!!!!!!!!delete this, its for debugging!!!!!!!!!!
-// decodeSearchTerm(searchQuery);
 
 /*Search Button event triggers the geodecode to turn city name into
 lat and lon, it passes those to the loadWeather function with the
@@ -18,13 +22,20 @@ APi and writes teh resonse to weatherData */
 $(".city-search").on("submit", function (e) {
   e.preventDefault();
   let searchQuery = $("#city").val();
-  console.log(searchQuery);
+  appendToSearchHistroy(searchQuery);
+  $("#search-history").css("display", "unset");
   decodeSearchTerm(searchQuery);
 });
+//selecting history search from dropdown loads it again
+searchHistory.addEventListener("change", () => {
+  let selectedIndex = searchHistory.selectedIndex;
+  let selectQuery = searchHistory.options[selectedIndex].text;
+  decodeSearchTerm(selectQuery);
+});
+
 //this decodes the city name and passes it to the weather api
 function decodeSearchTerm(query) {
   var geocodeApi = `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${myApiKey}`;
-  console.log(geocodeApi);
   fetch(geocodeApi)
     .then(function (response) {
       return response.json();
@@ -36,11 +47,11 @@ function decodeSearchTerm(query) {
       stateName = data[0].state;
       country = data[0].country;
       console.log(
-        "location decode successful " +
+        "Location decode successful!" +
           cityName +
-          " " +
+          ", " +
           stateName +
-          " " +
+          ", " +
           country
       );
       loadWeather(lat, lon);
@@ -49,7 +60,6 @@ function decodeSearchTerm(query) {
 //this takes the lat/lon from the geodecode and retrieves the weatherData
 function loadWeather(lat, lon) {
   var oneCallApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hour&appid=${myApiKey}`;
-  console.log(oneCallApi);
   fetch(oneCallApi)
     .then(function (data) {
       return data.json();
@@ -146,6 +156,20 @@ let condition = {
     },
   },
 };
+//UV Index Scale
+let uvIndexScale = {
+  low: {
+    alert: "UV index: low",
+  },
+  moderate: {
+    alert: "UV index: moderate to high",
+  },
+  high: {
+    level: "high",
+    alert: "UV index: very high",
+  },
+};
+
 //parsing the weather condition ids to return the proper icon
 function loadConditionIcon(weatherId) {
   let id = Math.floor(weatherId / 100);
@@ -205,18 +229,36 @@ function loadConditionIcon(weatherId) {
     );
   }
 }
-
+//fill the page with data from the API
 function writeWeatherData() {
   //this sets ll of the elemenst of today's weather to match the current data from OWM
   today.city.innerText = cityName + ", " + stateName + "   ";
   today.date.innerText = moment().format("dddd, MMMM Do YYYY");
   today.wind.innerText =
     "Wind: " + Math.round(weatherData.current.wind_speed) + " MPH";
-
   today.condition.src = loadConditionIcon(weatherData.current.weather[0].id);
   today.temp.innerHTML = Math.round(weatherData.current.temp) + "°";
   today.humidity.innerHTML = "Humidity% " + weatherData.current.humidity + "% ";
-  today.uvIndex.innerText = Math.round(weatherData.current.uvi);
+  function styleTodayUv(uvIndexArg) {
+    if (uvIndexArg <= 3) {
+      today.uvIndex.innerText = "UV index: low";
+      today.uvIndex.style.background = "#4DFF6A";
+      return;
+    } else if (uvIndexArg <= 7) {
+      today.uvIndex.innerText = "UV index: moderate";
+      today.uvIndex.style.background = "FFBB33";
+      return;
+    } else if (uvIndexArg > 8) {
+      today.uvIndex.innerText = "UV index: high";
+      today.uvIndex.style.background = "E60000";
+    } else {
+      today.uvIndex.innerText = "error";
+      // today.uvIndex.css("background-color", "#4DFF6A");
+      return;
+    }
+  }
+  styleTodayUv(Math.floor(weatherData.current.uvi));
+  // styleTodayUv(1);
 
   //this loops through each of the next 4 days and matches them to OMW Data
   for (i = 0; i < forecast.day.length; i++) {
@@ -230,7 +272,25 @@ function writeWeatherData() {
       "Wind: " + Math.round(weatherData.daily[i + 1].wind_speed) + " MPH";
     forecast.day[i].humidity.innerText =
       "Humidity% " + weatherData.daily[i + 1].humidity;
-    forecast.day[i].uv.innerText = Math.round(weatherData.daily[i + 1].uvi);
+
+    function styleForecastUv(forecastUVindex) {
+      if (forecastUVindex <= 3) {
+        forecast.day[i].uv.innerText = "UV index: low";
+        forecast.day[i].uv.style.background = "#4DFF6A";
+        return;
+      } else if (forecastUVindex <= 7) {
+        forecast.day[i].uv.innerText = "UV index: moderate";
+        forecast.day[i].uv.style.background = "#FFBB33";
+        return;
+      } else if (forecastUVindex > 8) {
+        forecast.day[i].uv.innerText = "UV index: high";
+        forecast.day[i].uv.style.background = "#E60000";
+      } else {
+        forecast.day[i].uv.innerText = "error";
+        return;
+      }
+    }
+    styleForecastUv(Math.floor(weatherData.daily[i + 1].uvi));
   }
   $(".main-grid").css("display", "grid");
 }
