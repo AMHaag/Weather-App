@@ -282,7 +282,7 @@ function writeWeatherData() {
         forecast.day[i].uv.innerText = "UV index: moderate";
         forecast.day[i].uv.style.background = "#FFBB33";
         return;
-      } else if (forecastUVindex > 8) {
+      } else if (forecastUVindex >= 8) {
         forecast.day[i].uv.innerText = "UV index: high";
         forecast.day[i].uv.style.background = "#E60000";
       } else {
