@@ -1,76 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:wght@300&display=swap" rel="stylesheet">
-    <link href="./assets/style.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Radio+Canada:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./assets/style.css" rel="stylesheet" />
 
     <title>Weather App</title>
-</head>
-<body>
-<header class="header">
-    <div class="title">Weather App</div>
-            <div class="search-box" id="search">
-                <form class="city-search">
-                    <input class="form-control me-2" type="text" placeholder="Search city" id="city" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-            <select name="search-history" id="search-history">
-                <option value="" disabled selected>Search History</option>
-            </select>
-</header>
-
-    <main class="main-grid" >
+  </head>
+  <body>
+    <header class="header">
+      <div class="title">Weather App</div>
+      <div class="search-box" id="search">
+        <form class="city-search">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Search city"
+            id="city"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+      <select name="search-history" id="search-history">
+        <option value="" disabled selected>Search History</option>
+      </select>
+    </header>
+    <main>
+      <div class="search-options-container">
+        <div class="search-results">
+          <h3>Search Results</h3>
+          <ul class="search-result-list">
+            <li class="result" id="result-1">Rockwell,IA</li>
+            <li class="result" id="result-2">Rockwell,TX</li>
+            <li class="result" id="result-3">Rockwell,NC</li>
+            <li class="result" id="result-4"></li>
+            <li class="result" id="result-5"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="main-grid">
         <div class="weather-box-1">
-            <h1 class="city-name">City,State</h1>
-            <img class="weather-condition-today"src="https://openweathermap.org/img/wn/10d@2x.png" alt="" srcset="">
-            <h1 class="today-temp">71f</h1>
+          <h1 class="city-name">City,State</h1>
+          <img
+            class="weather-condition-today"
+            src="https://openweathermap.org/img/wn/10d@2x.png"
+            alt=""
+            srcset=""
+          />
+          <h1 class="today-temp">71f</h1>
         </div>
         <div class="weather-box-2">
-            <h2 class="today-date">Monday, 11/1/2018</h2>
-            <h3 class="today-humidity">'<span><i class="fa-solid fa-water"></i></span>'20%</h3>
-            <h3 class="wind-speed">5 mph</h3>
-            <h3 class="today-UV-index">Low Risk</h3>
+          <h2 class="today-date">Monday, 11/1/2018</h2>
+          <h3 class="today-humidity">
+            '<span><i class="fa-solid fa-water"></i></span>'20%
+          </h3>
+          <h3 class="wind-speed">5 mph</h3>
+          <h3 class="today-UV-index">Low Risk</h3>
         </div>
         <div class="forecast day-1">
-            <h2 class="forecast-date">Tuesday</h2>
-            <img class="forecast-condition" src="https://openweathermap.org/img/wn/10d@2x.png" alt="">
-            <h3 class="forecast-temp">69</h3>
-            <p class="forecast-wind-speed">10 mph</p>
-            <p class="forecast-humidity">'<span><i class="fa-solid fa-water"></i></span>'10%</p>
-            <p class="forecast-UV-Index">Moderate</p>
+          <h2 class="forecast-date">Tuesday</h2>
+          <img
+            class="forecast-condition"
+            src="https://openweathermap.org/img/wn/10d@2x.png"
+            alt=""
+          />
+          <h3 class="forecast-temp">69</h3>
+          <p class="forecast-wind-speed">10 mph</p>
+          <p class="forecast-humidity">
+            '<span><i class="fa-solid fa-water"></i></span>'10%
+          </p>
+          <p class="forecast-UV-Index">Moderate</p>
         </div>
         <div class="forecast day-2">
-            <h2 class="forecast-date">Wednesday</h2>
-            <img class="forecast-condition" src="https://openweathermap.org/img/wn/10d@2x.png" alt="">
-            <h3 class="forecast-temp">69</h3>
-            <p class="forecast-wind-speed">10 mph</p>
-            <p class="forecast-humidity">'<span><i class="fa-solid fa-water"></i></span>'10%</p>
-            <p class="forecast-UV-Index">Moderate</p>
+          <h2 class="forecast-date">Wednesday</h2>
+          <img
+            class="forecast-condition"
+            src="https://openweathermap.org/img/wn/10d@2x.png"
+            alt=""
+          />
+          <h3 class="forecast-temp">69</h3>
+          <p class="forecast-wind-speed">10 mph</p>
+          <p class="forecast-humidity">
+            '<span><i class="fa-solid fa-water"></i></span>'10%
+          </p>
+          <p class="forecast-UV-Index">Moderate</p>
         </div>
         <div class="forecast day-3">
-            <h2 class="forecast-date">Thursday</h2>
-            <img class="forecast-condition" src="https://openweathermap.org/img/wn/10d@2x.png" alt="">
-            <h3 class="forecast-temp">69</h3>
-            <p class="forecast-wind-speed">10 mph</p>
-            <p class="forecast-humidity">'<span><i class="fa-solid fa-water"></i></span>'10%</p>
-            <p class="forecast-UV-Index">Moderate</p>
+          <h2 class="forecast-date">Thursday</h2>
+          <img
+            class="forecast-condition"
+            src="https://openweathermap.org/img/wn/10d@2x.png"
+            alt=""
+          />
+          <h3 class="forecast-temp">69</h3>
+          <p class="forecast-wind-speed">10 mph</p>
+          <p class="forecast-humidity">
+            '<span><i class="fa-solid fa-water"></i></span>'10%
+          </p>
+          <p class="forecast-UV-Index">Moderate</p>
         </div>
         <div class="forecast day-4">
-            <h2 class="forecast-date">Friday</h2>
-            <img class="forecast-condition" src="https://openweathermap.org/img/wn/10d@2x.png" alt="">
-            <h3 class="forecast-temp">69</h3>
-            <p class="forecast-wind-speed">10 mph</p>
-            <p class="forecast-humidity">'<span><i class="fa-solid fa-water"></i></span>'10%</p>
-            <p class="forecast-UV-Index">Moderate</p>
+          <h2 class="forecast-date">Friday</h2>
+          <img
+            class="forecast-condition"
+            src="https://openweathermap.org/img/wn/10d@2x.png"
+            alt=""
+          />
+          <h3 class="forecast-temp">69</h3>
+          <p class="forecast-wind-speed">10 mph</p>
+          <p class="forecast-humidity">
+            '<span><i class="fa-solid fa-water"></i></span>'10%
+          </p>
+          <p class="forecast-UV-Index">Moderate</p>
         </div>
+      </div>
     </main>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="./assets/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
 
-</body>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./assets/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+  </body>
 </html>

@@ -261,7 +261,7 @@ function writeWeatherData() {
   // styleTodayUv(1);
 
   //this loops through each of the next 4 days and matches them to OMW Data
-  for (i = 0; i < forecast.day.length; i++) {
+  for (let i = 0; i < forecast.day.length; i++) {
     forecast.day[i].date.innerText = moment().add(i, "d").format("dddd");
     forecast.day[i].temp.innerText =
       Math.round(weatherData.daily[i + 1].temp.max) + "°";
